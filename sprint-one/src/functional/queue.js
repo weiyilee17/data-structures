@@ -3,7 +3,7 @@ var Queue = function() {
 
   // Use an object with numeric keys to store values
   var storage = {};
-  var size = 0;
+  var sizeOfQueue = 0;
   var headIndex = 0;
   var key = 0;
   // key exists for dequeue
@@ -12,7 +12,7 @@ var Queue = function() {
 
   someInstance.enqueue = function(value) {
     storage[key++] = value;
-    size++;
+    sizeOfQueue++;
   };
 
   someInstance.dequeue = function() {
@@ -32,18 +32,18 @@ var Queue = function() {
     // so we have an independent varaible key that is independent to size
     // when we dequeue we remove 0, 1, 2... and enqueue we add 97, 98, 99...
 
-    if (size) {
+    if (sizeOfQueue) {
       var firstPropertiesValue = storage[headIndex];
       delete storage[headIndex];
       headIndex++;
-      size--;
+      sizeOfQueue--;
       
       return firstPropertiesValue;
     }
   };
 
   someInstance.size = function() { 
-    return size;
+    return sizeOfQueue;
   };
 
   return someInstance;
