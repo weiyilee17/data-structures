@@ -64,9 +64,13 @@ methods.depthFirstLog = function(iterator) {
    if(this.right) {
       this.right.depthFirstLog(iterator);
    }
+
 }
 
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ * insert : O(log(n))
+ * contains : O(log(n))
+ * depthFirstLog : O(log(n))
  */
