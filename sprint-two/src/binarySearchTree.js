@@ -1,5 +1,70 @@
 var BinarySearchTree = function(value) {
+   var node = {}
+   node.value = value;
+   node.left = null;
+   node.right = null;
+
+   _.extend(node, methods);
+
+   return node;
 };
+
+var methods = {};
+
+methods.insert = function(newValue) {
+
+   if(newValue <= this.value) {
+
+      if(this.left) {
+         return this.left.insert(newValue);
+      } else {
+         this.left = BinarySearchTree(newValue);
+      }
+      
+   } else { // new value > current parrent node's value
+      if(this.right) {
+         return this.right.insert(newValue);
+      } else {
+         this.right = BinarySearchTree(newValue);
+      }
+   }
+
+};
+
+methods.contains = function(target) {
+
+   if(target === this.value) {
+      return true;
+   } else if(target < this.value) {
+      
+      if(this.left) {
+         return this.left.contains(target);
+      } else {
+         return false;
+      }
+      
+   } else { // target > this.value
+      
+      if(this.right) {
+         return this.right.contains(target);
+      } else {
+         return false;
+      }
+   }
+};
+
+methods.depthFirstLog = function(iterator) {
+
+   iterator(this.value);
+
+   if(this.left) {
+      this.left.depthFirstLog(iterator);
+   }
+
+   if(this.right) {
+      this.right.depthFirstLog(iterator);
+   }
+}
 
 
 /*
