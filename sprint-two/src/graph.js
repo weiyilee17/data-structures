@@ -16,7 +16,6 @@ Graph.prototype.addNode = function(node) {
 
 // Return a boolean value indicating if the value passed to contains is represented in the graph.
 Graph.prototype.contains = function(node) {
-
    for (var i = 0; i < this.nodes.length; i++) {
       if (this.nodes[i].value === node) {
          return true;
@@ -27,7 +26,6 @@ Graph.prototype.contains = function(node) {
 
 // Removes a node from the graph.
 Graph.prototype.removeNode = function(node) {
-
    var i;
    // remove edges before remove node
    for (i = 0; i < this.nodes.length; i++) {
@@ -37,7 +35,6 @@ Graph.prototype.removeNode = function(node) {
          }
       }
    }
-
 
    for (i = 0; i < this.nodes.length; i++) {
       if (this.nodes[i].value === node) {
@@ -66,32 +63,31 @@ Graph.prototype.hasEdge = function(fromNode, toNode) {
 Graph.prototype.addEdge = function(fromNode, toNode) {
 
    var i;
-
-   for (i = 0; i < this.nodes.length; i++) {
-      if (this.nodes[i].value === fromNode){
-         this.nodes[i].connections.push(toNode);
+   var outsideScope = this;
+   var plusEdge = function(from, to){
+     for (i = 0; i < outsideScope.nodes.length; i++) {
+       if (outsideScope.nodes[i].value === from){
+          outsideScope.nodes[i].connections.push(to);
+        }
       }
-   }
+    }
+    plusEdge(fromNode, toNode);
+    plusEdge(toNode, fromNode);
 
-   for (i = 0; i < this.nodes.length; i++) {
-      if (this.nodes[i].value === toNode){
-         this.nodes[i].connections.push(fromNode);
-      }
-   }
 };
 
 // Remove an edge between any two specified (by value) nodes.
 Graph.prototype.removeEdge = function(fromNode, toNode) {
    var i;
    var j;
-   var outsideScopesThis = this;
+   var outsideScope = this;
 
   var edgeDelete = function(from, to){
-    for (i = 0; i < outsideScopesThis.nodes.length; i++) {
-      if (outsideScopesThis.nodes[i].value === from){
-         for (j = 0; j < outsideScopesThis.nodes[i].connections.length; j++){
-            if (outsideScopesThis.nodes[i].connections[j] === to){
-               outsideScopesThis.nodes[i].connections.splice(j, 1);
+    for (i = 0; i < outsideScope.nodes.length; i++) {
+      if (outsideScope.nodes[i].value === from){
+         for (j = 0; j < outsideScope.nodes[i].connections.length; j++){
+            if (outsideScope.nodes[i].connections[j] === to){
+               outsideScope.nodes[i].connections.splice(j, 1);
             }
          }
       }
@@ -100,15 +96,6 @@ Graph.prototype.removeEdge = function(fromNode, toNode) {
  edgeDelete(fromNode, toNode);
  edgeDelete(toNode, fromNode);
 
-  //  for (i = 0; i < this.nodes.length; i++) {
-  //     if (this.nodes[i].value === toNode){
-  //        for (j = 0; j < this.nodes[i].connections.length; j++){
-  //           if (this.nodes[i].connections[j] === fromNode){
-  //              this.nodes[i].connections.splice(j, 1);
-  //           }
-  //        }
-  //     }
-  //  }
 };
 
 // Pass in a callback which will be executed on each node of the graph.
@@ -116,6 +103,10 @@ Graph.prototype.forEachNode = function(cb) {
    for (var i = 0; i < this.nodes.length; i++) {
       cb(this.nodes[i].value);
    }
+};
+
+Graph.prototype.getNodeNum = function () {
+  return this.nodes.length;
 };
 
 /*

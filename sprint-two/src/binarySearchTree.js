@@ -1,11 +1,9 @@
 var BinarySearchTree = function(value) {
-   var node = {}
+   var node = Object.create(methods)
    node.value = value;
    node.left = null;
    node.right = null;
-
-   _.extend(node, methods);
-
+   
    return node;
 };
 
