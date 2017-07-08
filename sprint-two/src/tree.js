@@ -1,7 +1,6 @@
 var Tree = function(value) {
   var newTree = {};
   newTree.value = value;
-  newTree.childCount = 0;
 
   // your code here
   newTree.children = [];
@@ -14,57 +13,26 @@ var Tree = function(value) {
 var treeMethods = {};
 
 treeMethods.addChild = function(value) {
-  this.children[this.childCount++] = Tree(value);
+  this.children.push(Tree(value));
 };
 
 treeMethods.contains = function(target) {
   
-  // var found = false;
-
-  // if (this.value === target) {
-  //   found = true;
-  //   return true;
-  // }
-
-  // for (var i = 0; i < childCount; i++) {
-  //   if (this.children[i].contains(target)) {
-  //     found = true;
-  //   }
-  // }
-
-  // return false;
-  
-  var found = [];
-
-  containsInner(this, target, found);
-  
-  if (!found.length) {  // if we never found the value for the entire tree, we would never push
-                        // thus return false
-    return false;
-  } else {              // if we found it somewhere, we would push true to found and found would have length
+  if (this.value === target) {
     return true;
   }
 
-};
-
-function containsInner(currentNode, target, array) {
-
-  var i;
-  
-  // search for current node's child since the test case never adds value to root
-  for(i = 0; i < currentNode.childCount; i++) {
-    if (currentNode.children[i].value === target) {
-      array.push(true);
-      return;
+  for (var i = 0; i < this.children.length; i++) {
+    if (this.children[i].contains(target)) {
+      return true;
     }
   }
 
-  // go through the child and check whether the children contains the target
-  for(i = 0; i < currentNode.childCount; i++) {
-    containsInner(currentNode.children[i], target, array);
-  }
-  
-}
+  return false;
+
+};
+
+
 
 /*
  * Complexity: What is the time complexity of the above functions?
