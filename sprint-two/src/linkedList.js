@@ -1,35 +1,26 @@
-// var Node = function (value) {
-//   var node = {};
+var linkedListNode = function (value) { // had to name it a different name to differentiate to graph's node
+  var node = {};
 
-//   node.value = value;
-//   node.next = null;
+  node.value = value;
+  node.next = null;
 
-//   return node;
-// };
+  return node;
+};
 
 var LinkedList = function() {
   var list = {};
   list.head = null;
   list.tail = null;
 
-  var Node = function(value) {
-    var node = {};
-
-    node.value = value;
-    node.next = null;
-
-    return node;
-  };
-
   list.addToTail = function(value) {
 
     if (this.head === null) { // if list is empty
-      var newNode = Node(value);
+      var newNode = linkedListNode(value);
       this.head = newNode;
       this.tail = newNode;
     } else {
       var prevTail = this.tail;
-      this.tail = Node(value);
+      this.tail = linkedListNode(value);
       prevTail.next = this.tail;
     }
     
