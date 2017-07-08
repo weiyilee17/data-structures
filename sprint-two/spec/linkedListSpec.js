@@ -10,10 +10,11 @@ describe('linkedList', function() {
     expect(linkedList).to.have.property('tail');
   });
 
-  it('should have methods named "addToTail", "removeHead", and "contains"', function() {
+  it('should have methods named "addToTail", "removeHead", "getElementsBetweenIndex" and "contains"', function() {
     expect(linkedList.addToTail).to.be.a('function');
     expect(linkedList.removeHead).to.be.a('function');
     expect(linkedList.contains).to.be.a('function');
+    expect(linkedList.getElementsBetweenIndex).to.be.a('function');
   });
 
   it('should designate a new tail when new nodes are added', function() {
@@ -51,5 +52,33 @@ describe('linkedList', function() {
     expect(linkedList.contains(4)).to.equal(false);
   });
 
-  // add more tests here to test the functionality of linkedList
+  it('should return an array of values within a specified range', function() {
+    linkedList.addToTail(1);
+    linkedList.addToTail(2);
+    linkedList.addToTail(3);
+    linkedList.addToTail(5);
+    linkedList.addToTail(7);
+    expect(linkedList.getElementsBetweenIndex(1,3)).to.eql([2,3,5]);
+  });
+
+  it('should return correct array when endIndex is the last index of allNodeValues', function() {
+    linkedList.addToTail(1);
+    linkedList.addToTail(2);
+    linkedList.addToTail(3);
+    linkedList.addToTail(5);
+    linkedList.addToTail(7);
+    expect(linkedList.getElementsBetweenIndex(0,4)).to.eql([1,2,3,5,7]);
+  });
+
+  it('should return empty array when startIndex = endIndex', function() {
+    linkedList.addToTail(1);
+    linkedList.addToTail(2);
+    linkedList.addToTail(3);
+    linkedList.addToTail(5);
+    linkedList.addToTail(7);
+    expect(linkedList.getElementsBetweenIndex(0,0)).to.eql([]);
+  });
+
+
+
 });
