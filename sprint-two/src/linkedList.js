@@ -1,20 +1,29 @@
-var Node = function(value) {
-  var node = {};
+// var Node = function (value) {
+//   var node = {};
 
-  node.value = value;
-  node.next = null;
+//   node.value = value;
+//   node.next = null;
 
-  return node;
-};
+//   return node;
+// };
 
 var LinkedList = function() {
   var list = {};
   list.head = null;
   list.tail = null;
 
+  var Node = function(value) {
+    var node = {};
+
+    node.value = value;
+    node.next = null;
+
+    return node;
+  };
+
   list.addToTail = function(value) {
 
-    if (!this.head) { // if list is empty
+    if (this.head === null) { // if list is empty
       var newNode = Node(value);
       this.head = newNode;
       this.tail = newNode;
@@ -23,11 +32,11 @@ var LinkedList = function() {
       this.tail = Node(value);
       prevTail.next = this.tail;
     }
-
+    
   };
 
   list.removeHead = function() {
-    if (!this.head) { // if list is empty
+    if (this.head === null) { // if list is empty
 
     } else {
       var prevHead = this.head;
