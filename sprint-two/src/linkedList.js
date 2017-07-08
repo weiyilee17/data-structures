@@ -74,6 +74,7 @@ var LinkedList = function() {
     if (startIndex === endIndex) {
       return [];  // slice(0, 0 + 1) would return an array with the first element
     } else {
+      // +1 for the last element because slice doesn't include the endIndex
       return this.allNodeValues.slice(startIndex, endIndex + 1);
     }
 
