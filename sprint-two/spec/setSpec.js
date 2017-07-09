@@ -24,4 +24,12 @@ describe('set', function() {
     expect(set.contains('Mel Gibson')).to.equal(false);
   });
 
+  it('should return length of a set', function() {
+    set.add('Mel Gibson');
+    set.remove('Mel Gibson');
+    set.add('Weiyi Lee');
+    set.add('John Smith');
+    expect(set.getLength()).to.equal(2);
+  });
+
 });

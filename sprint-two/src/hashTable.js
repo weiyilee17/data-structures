@@ -3,22 +3,24 @@
 var HashTable = function() {
   this._limit = 8;
   this._storage = LimitedArray(this._limit);
+  this._count = 0;
 };
 
 HashTable.prototype.insert = function(k, v) {
   var index = getIndexBelowMaxForKey(k, this._limit);
-  
+
   if (this._storage.get(index) === undefined) {  // if this bucket is empty
     var bucket = [];
     var tuple = [];
-
     tuple.push(k, v);
+    this._count++
     bucket.push(tuple);
     this._storage.set(index, bucket);
   } else {  // if the bucket has value already
     var tuple = [];
 
     tuple.push(k, v);
+    this._count++
 
     // loop through the array first and check for same keys
     for(var i  = 0; i < this._storage.get(index).length; i++) {
@@ -29,7 +31,11 @@ HashTable.prototype.insert = function(k, v) {
     }
     this._storage.get(index).push(tuple);
   }
-  
+
+  if(this._count > Math.floor(this._limit * .75)){
+    this._limit = this._limit * 2;
+  }
+
 };
 
 HashTable.prototype.retrieve = function(k) {
@@ -63,8 +69,11 @@ HashTable.prototype.remove = function(k) {
 };
 
 
+
+var people = [['Steven', 'Tyler'], ['George', 'Harrison'], ['Mr.', 'Doob'], ['Dr.', 'Sunshine'], ['John', 'Resig'], ['Brendan', 'Eich'], ['Alan', 'Turing']];
+
 /*
  * Complexity: What is the time complexity of the above functions?
- * 
- * 
+ *
+ *
  */
