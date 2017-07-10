@@ -111,4 +111,12 @@ Graph.prototype.getNodeNum = function () {
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ * addNodes : O(1)
+ * contains : O(n)
+ * removeNode : O(n^4)
+ * hasEdge : O(n^2)
+ * addEdge : O(n)
+ * removeEdge : O(n^2)
+ * forEachNode : O(n) 
+ * getNodeNum : O(1)
  */
