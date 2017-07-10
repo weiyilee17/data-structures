@@ -1,41 +1,38 @@
-
-
 var HashTable = function() {
   this._limit = 8;
   this._storage = LimitedArray(this._limit);
-  this._count = 0;
+  this._elementNum = 0;
 };
 
 HashTable.prototype.insert = function(k, v) {
+
   var index = getIndexBelowMaxForKey(k, this._limit);
 
   if (this._storage.get(index) === undefined) {  // if this bucket is empty
     var bucket = [];
     var tuple = [];
+
     tuple.push(k, v);
-    this._count++
     bucket.push(tuple);
     this._storage.set(index, bucket);
+    this._elementNum++;
+    
   } else {  // if the bucket has value already
     var tuple = [];
 
     tuple.push(k, v);
-    this._count++
 
     // loop through the array first and check for same keys
     for(var i  = 0; i < this._storage.get(index).length; i++) {
       if (this._storage.get(index)[i][0] === k) { // if there is a same key
         this._storage.get(index)[i][1] = v; // overwrite the value
+
         return;
       }
     }
     this._storage.get(index).push(tuple);
+    this._elementNum++;
   }
-
-  if(this._count > Math.floor(this._limit * .75)){
-    this._limit = this._limit * 2;
-  }
-
 };
 
 HashTable.prototype.retrieve = function(k) {
@@ -61,19 +58,23 @@ HashTable.prototype.remove = function(k) {
 
   for (var i = 0; i < bucket.length; i++) {
     if (bucket[i][0] === k) {
-      bucket[i].pop();  // pop the value
-      bucket[i].pop();  // pop the key
+      bucket[i].splice(i, 1);
+      // bucket[i].pop();  // pop the value
+      // bucket[i].pop();  // pop the key
       // or bucket.splice(i, 1) i is positon to start, and 1 element to cut off
     }
   }
+  this._elementNum--;
 };
 
+HashTable.prototype.getElementNum = function() {
+  return this._elementNum;
+}
 
-
-var people = [['Steven', 'Tyler'], ['George', 'Harrison'], ['Mr.', 'Doob'], ['Dr.', 'Sunshine'], ['John', 'Resig'], ['Brendan', 'Eich'], ['Alan', 'Turing']];
 
 /*
  * Complexity: What is the time complexity of the above functions?
- *
- *
+ * insert : O(n)
+ * remove : O(n)
+ * getElementNum : O(1)
  */
