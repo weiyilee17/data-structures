@@ -88,4 +88,5 @@ var LinkedList = function() {
  * addToTail : O(1)
  * removeHead : O(1)
  * contains : O(n)
+ * getElementsBetweenIndex : O(1)
  */
