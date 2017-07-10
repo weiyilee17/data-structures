@@ -32,10 +32,33 @@ treeMethods.contains = function(target) {
 
 };
 
+treeMethods.getElementCount = function() {
+  var childrenCount = [];
 
+  getElementCountInner(this, childrenCount);
+
+  var total = 0;
+
+  for(var i = 0; i < childrenCount.length; i++) {
+    total += childrenCount[i];
+  }
+
+  return total;
+}
+
+function getElementCountInner(currentNode, elementCount) {
+
+  if (currentNode.children.length) {
+    elementCount.push(currentNode.children.length);
+    for(var i = 0; i < currentNode.children.length; i++) {
+      getElementCountInner(currentNode.children[i] ,elementCount);
+    }
+  }
+}
 
 /*
  * Complexity: What is the time complexity of the above functions?
  * addChild : O(1)
  * contains : O(n)
+ * getElementCount : O(n)
  */
