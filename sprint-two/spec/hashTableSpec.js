@@ -47,8 +47,27 @@ describe('hashTable', function() {
     window.getIndexBelowMaxForKey = oldHashFunction;
   });
 
+  it('should add number count after insert', function() {
+    hashTable.insert('Bob', 'Loblaw');
+    expect(hashTable.getElementNum()).to.equal(1);
+  });
+
+  it('should return same element number count when overwriting', function() {
+    hashTable.insert('Bob', 'Loblaw');
+    hashTable.insert('John', 'Smith');
+    hashTable.insert('Weiyi', 'Lee');
+    hashTable.remove('John');
+    expect(hashTable.getElementNum()).to.equal(2);
+  });
+
+  it('should return same element number count when overwriting', function() {
+    hashTable.insert('Bob', 'Loblaw');
+    hashTable.insert('Bob', 'Barker');
+    expect(hashTable.getElementNum()).to.equal(1);
+  });
+
   // (Advanced! Remove the extra "x" when you want the following tests to run)
-  it ('should double in size when needed', function() {
+  xit ('should double in size when needed', function() {
     _.each(people, function(person) {
       var firstName = person[0];
       var lastName = person[1];
@@ -58,7 +77,7 @@ describe('hashTable', function() {
     expect(hashTable._limit).to.equal(16);
   });
 
-  it ('should halve in size when needed', function() {
+  xit ('should halve in size when needed', function() {
     _.each(people, function(person) {
       var firstName = person[0];
       var lastName = person[1];
